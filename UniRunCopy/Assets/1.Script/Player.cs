@@ -5,11 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField, Range(0, 5)] int JumpPower;
+    [SerializeField] ParticleSystem DieEffect;
     Rigidbody2D rb;
     Animator anim;
 
+    bool isDead = false;
     int JumpCounter = 0;
-    bool isGround=true;
+    bool isGround = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,23 +21,37 @@ public class Player : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {     
-        if (Input.GetKeyDown(KeyCode.Space)&&JumpCounter<2)
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && JumpCounter < 2)
         {
             rb.velocity = Vector2.up * JumpPower;
             JumpCounter++;
+            
         }
-        print(isGround);
+
         if (isGround)
         {
             anim.SetBool("Run", true);
         }
-        else
+        else 
             anim.SetTrigger("Jump");
+
+
+
+
+
+
+    }
+    void Die()
+    {
+        rb.gravityScale = 0;
+        ParticleSystem.Instantiate(DieEffect,transform.position,Quaternion.identity);
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag=="Ground")
+        if (collision.gameObject.tag == "Ground")
         {
             isGround = true;
             JumpCounter = 0;
@@ -45,5 +61,13 @@ public class Player : MonoBehaviour
     {
         isGround = false;
     }
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+    
+        if (collision.tag == "Dead"&&!isDead)
+        {
+            isDead=true;
+            Die();
+        }
+    }
 }
