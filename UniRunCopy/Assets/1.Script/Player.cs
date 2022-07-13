@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
 
-    bool isDead = false;
+    
     int JumpCounter = 0;
     bool isGround = true;
     // Start is called before the first frame update
@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        GameManager.isDead = false;
     }
 
     // Update is called once per frame
@@ -64,9 +65,9 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
     
-        if (collision.tag == "Dead"&&!isDead)
+        if (collision.tag == "Dead"&&!GameManager.isDead)
         {
-            isDead=true;
+            GameManager.isDead =true;
             Die();
         }
     }
