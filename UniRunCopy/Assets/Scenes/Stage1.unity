@@ -1691,7 +1691,7 @@ GameObject:
   - component: {fileID: 1353714420}
   - component: {fileID: 1353714426}
   - component: {fileID: 1353714427}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1818,8 +1818,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a26b0dd0f41cd254489d34e83ca9e23e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpPower: 5
+  JumpPower: 7
   DieEffect: {fileID: -9172231725118044381, guid: d165d7ed1549f284589d514729810fdf, type: 3}
+  btn: {fileID: 0}
+  slider: {fileID: 0}
 --- !u!70 &1353714426
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2194,7 +2196,7 @@ MonoBehaviour:
   platform0: {fileID: 7602628668455893041, guid: cb24652af8542e24e914a007c3967c73, type: 3}
   platform1: {fileID: 2371727073781387160, guid: add104fde0e70c54ea4698478c1de238, type: 3}
   platform2: {fileID: 3400908159377886350, guid: b5936873209a9f64da8e14f32d89380f, type: 3}
-  xPos: 4
+  xPos: 2.5
   MinYPos: 0
   MaxYPos: -1
 --- !u!1 &1678658728

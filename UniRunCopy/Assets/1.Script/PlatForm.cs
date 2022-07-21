@@ -23,6 +23,7 @@ public class Platform : MonoBehaviour
     int a;
     int b;
 
+    
     private void Start()
     {
         speed = 8;
@@ -36,19 +37,17 @@ public class Platform : MonoBehaviour
     void Update()
     {
 
-        if (!GameManager.isDead)
-        {
+        if (!Player.isDead)        
             transform.position -= transform.right * speed * Time.deltaTime;
-            
-        }   
     }
-    void random()
+   
+     void random()
     {
-        if (GameManager.isDead)
+        if (Player.isDead)
             return;
             //int r = Random.Range(0, 3);
 
-        if (!first)
+        if (!first)         
         {
             do
             {
@@ -93,5 +92,6 @@ public class Platform : MonoBehaviour
 
     }
 }
+
 
 

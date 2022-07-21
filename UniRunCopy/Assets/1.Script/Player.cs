@@ -1,23 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class Player : MonoBehaviour
 {
-    [SerializeField, Range(0, 5)] int JumpPower;
+    [SerializeField, Range(0, 10)] int JumpPower;
     [SerializeField] ParticleSystem DieEffect;
     Rigidbody2D rb;
     Animator anim;
-
+    int cur_hp;
+   
+    public static bool isDead { get; private set; }
+    [SerializeField] Button btn;
     
     int JumpCounter = 0;
     bool isGround = true;
+    [SerializeField] Slider slider;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        GameManager.isDead = false;
+        isDead = false;
+        cur_hp = 3;
+
     }
 
     // Update is called once per frame
@@ -37,9 +45,11 @@ public class Player : MonoBehaviour
         else 
             anim.SetTrigger("Jump");
 
-
-
-
+        if (cur_hp==0)
+        {
+            Die();
+        }
+        
 
 
     }
@@ -57,6 +67,7 @@ public class Player : MonoBehaviour
             isGround = true;
             JumpCounter = 0;
         }
+        
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -65,10 +76,16 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
     
-        if (collision.tag == "Dead"&&!GameManager.isDead)
+        if (collision.tag == "Dead"&&!isDead)
         {
-            GameManager.isDead =true;
+            isDead =true;
             Die();
         }
+        if (collision.gameObject.tag == "Enemy")
+        {           
+            cur_hp--;
+            Debug.Log("현재 체력 : " + cur_hp);
+        }
     }
+  
 }

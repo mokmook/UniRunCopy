@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class PlatformClone : MonoBehaviour
 {
+    
     // Start is called before the first frame update
     void Start()
     {
-       
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!GameManager.isDead)
+        if (!Player.isDead)
         {
             transform.position -= transform.right * Platform.speed * Time.deltaTime;
-
         }
     }
 }
