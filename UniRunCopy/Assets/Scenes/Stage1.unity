@@ -1691,6 +1691,7 @@ GameObject:
   - component: {fileID: 1353714420}
   - component: {fileID: 1353714426}
   - component: {fileID: 1353714427}
+  - component: {fileID: 1353714428}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -1934,6 +1935,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1353714428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353714419}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d4a488e634e3d54fb66bbde97e9b697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1370981893
 GameObject:
   m_ObjectHideFlags: 0
@@ -2191,11 +2204,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5e422f04cbecf4e96cbe06f5d86cc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 8
   minSpawnTime: 0.5
   MaxSpawnTime: 1.5
-  platform0: {fileID: 7602628668455893041, guid: cb24652af8542e24e914a007c3967c73, type: 3}
-  platform1: {fileID: 2371727073781387160, guid: add104fde0e70c54ea4698478c1de238, type: 3}
-  platform2: {fileID: 3400908159377886350, guid: b5936873209a9f64da8e14f32d89380f, type: 3}
+  platform:
+  - {fileID: 7602628668455893041, guid: cb24652af8542e24e914a007c3967c73, type: 3}
+  - {fileID: 2371727073781387160, guid: add104fde0e70c54ea4698478c1de238, type: 3}
+  - {fileID: 3400908159377886350, guid: b5936873209a9f64da8e14f32d89380f, type: 3}
   xPos: 2.5
   MinYPos: 0
   MaxYPos: -1

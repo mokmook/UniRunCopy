@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlatformClone : MonoBehaviour
 {
-    
+    [SerializeField]float speed=8;
     // Start is called before the first frame update
     void Start()
     {
@@ -12,11 +12,11 @@ public class PlatformClone : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   protected virtual void Update()
     {
         if (!Player.isDead)
         {
-            transform.position -= transform.right * Platform.speed * Time.deltaTime;
+            transform.position -= transform.right * speed * Time.deltaTime;
         }
     }
 }
