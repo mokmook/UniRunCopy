@@ -8,16 +8,18 @@ public class Player : MonoBehaviour
 {
     [SerializeField, Range(0, 10)] int JumpPower;
     [SerializeField] ParticleSystem DieEffect;
+    [SerializeField] SpriteRenderer sprite;
     Rigidbody2D rb;
     Animator anim;
-    int cur_hp;
+    public int cur_hp { get; private set; } 
+    int score;
+    
    
     public static bool isDead { get; private set; }
-    [SerializeField] Button btn;
+
     
     int JumpCounter = 0;
     bool isGround = true;
-    [SerializeField] Slider slider;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,7 +27,8 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         isDead = false;
         cur_hp = 3;
-
+        score = 0;
+        
     }
 
     // Update is called once per frame
@@ -36,8 +39,7 @@ public class Player : MonoBehaviour
             rb.velocity = Vector2.up * JumpPower;
             JumpCounter++;
             
-        }
-
+        }   
         if (isGround)
         {
             anim.SetBool("Run", true);
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
         {
             Die();
         }
-        
+       
 
 
     }
@@ -58,7 +60,6 @@ public class Player : MonoBehaviour
         rb.gravityScale = 0;
         ParticleSystem.Instantiate(DieEffect,transform.position,Quaternion.identity);
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -66,26 +67,35 @@ public class Player : MonoBehaviour
         {
             isGround = true;
             JumpCounter = 0;
+            score++;
+            print(score);
         }
-        
+        if (collision.gameObject.tag == "Enemy")
+        {
+            cur_hp--;
+            StartCoroutine("GetHit");
+            Debug.Log("현재 체력 : " + cur_hp);
+            
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         isGround = false;
     }
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-    
+    {   
         if (collision.tag == "Dead"&&!isDead)
         {
             isDead =true;
             Die();
-        }
-        if (collision.gameObject.tag == "Enemy")
-        {           
-            cur_hp--;
-            Debug.Log("현재 체력 : " + cur_hp);
-        }
+        }      
     }
-  
+  IEnumerator GetHit()
+    {
+        sprite.material.color = Color.red;
+        yield return new WaitForSeconds(.5f);
+        sprite.material.color = Color.white;
+        yield break;
+    }
+
 }

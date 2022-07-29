@@ -11,6 +11,11 @@ public class Platform : PlatformClone
     [SerializeField] float MaxSpawnTime;
 
     [SerializeField] GameObject[] platform;
+     public GameObject[] platforms { get; private set; }
+
+    float LastActive;
+    [SerializeField]int scoreTime;
+    int score;
 
     [SerializeField] float xPos;
     [SerializeField] float MinYPos;
@@ -28,36 +33,42 @@ public class Platform : PlatformClone
                 count = value;
         }
     }
-
+    private void OnEnable()
+    {
+        LastActive = Time.time;
+        score = 0;
+        scoreTime = 1;      
+    }
 
     private void Start()
-    {
-        StartCoroutine(Platforms());
-        platform=new GameObject[count];
-
-        foreach (var item in platform)
+    {    
+        platforms=new GameObject[3];
+        for (int i = 0; i < 3; i++)
         {
-            platform[count] = Instantiate(platform[count], new Vector2(0, -25), Quaternion.identity);
+            platforms[i] = Instantiate(platform[i], new Vector2(0, -25), Quaternion.identity);
         }
-
-
+        StartCoroutine(Platforms());
     }
     protected override void Update()
     {
         base.Update();
-        print(count);
+        print("½ºÄÚ¾î: "+score);
+        if (Time.time>LastActive+scoreTime&&!Player.isDead)
+        {
+            score++;
+            LastActive = Time.time;
+        }
     }
-    
     IEnumerator Platforms()
-    {
-    
+    {   
         while (!Player.isDead)
         {
-            platform[count].transform.position = new Vector2(xPos, Random.Range(MinYPos, MaxYPos));
-            count++;
+            platforms[Count].transform.position = new Vector2(xPos, Random.Range(MinYPos, MaxYPos));
+            Count += 1;
             yield return new WaitForSeconds(Random.Range(minSpawnTime, MaxSpawnTime));
         }
     }
+    
 }
 
 
