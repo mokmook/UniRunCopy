@@ -9,25 +9,30 @@ public class Player : MonoBehaviour
     [SerializeField, Range(0, 10)] int JumpPower;
     [SerializeField] ParticleSystem DieEffect;
     [SerializeField] SpriteRenderer sprite;
+
+    [Header("오디오 클립")]
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip dieSound;
+    [SerializeField] AudioClip getHitSound;
+
+
     Rigidbody2D rb;
     Animator anim;
     public int cur_hp { get; private set; } 
-    int score;
-    
-   
+
+
     public static bool isDead { get; private set; }
 
     
     int JumpCounter = 0;
     bool isGround = true;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         isDead = false;
         cur_hp = 3;
-        score = 0;
         
     }
 
@@ -38,7 +43,7 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.up * JumpPower;
             JumpCounter++;
-            
+            AudioManager.instance.PlayAudioClip(jumpSound, transform);
         }   
         if (isGround)
         {
@@ -57,9 +62,11 @@ public class Player : MonoBehaviour
     }
     void Die()
     {
+        isDead = true;
         rb.gravityScale = 0;
+        AudioManager.instance.PlayAudioClip(dieSound, transform);
         ParticleSystem.Instantiate(DieEffect,transform.position,Quaternion.identity);
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        gameObject.SetActive(false);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -67,14 +74,13 @@ public class Player : MonoBehaviour
         {
             isGround = true;
             JumpCounter = 0;
-            score++;
-            print(score);
+            
         }
         if (collision.gameObject.tag == "Enemy")
         {
             cur_hp--;
+            AudioManager.instance.PlayAudioClip(getHitSound, transform);
             StartCoroutine("GetHit");
-            Debug.Log("현재 체력 : " + cur_hp);
             
         }
     }
@@ -86,7 +92,6 @@ public class Player : MonoBehaviour
     {   
         if (collision.tag == "Dead"&&!isDead)
         {
-            isDead =true;
             Die();
         }      
     }

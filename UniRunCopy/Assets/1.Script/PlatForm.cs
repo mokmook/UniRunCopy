@@ -13,9 +13,7 @@ public class Platform : PlatformClone
     [SerializeField] GameObject[] platform;
      public GameObject[] platforms { get; private set; }
 
-    float LastActive;
-    [SerializeField]int scoreTime;
-    int score;
+    
 
     [SerializeField] float xPos;
     [SerializeField] float MinYPos;
@@ -33,12 +31,7 @@ public class Platform : PlatformClone
                 count = value;
         }
     }
-    private void OnEnable()
-    {
-        LastActive = Time.time;
-        score = 0;
-        scoreTime = 1;      
-    }
+    
 
     private void Start()
     {    
@@ -52,12 +45,8 @@ public class Platform : PlatformClone
     protected override void Update()
     {
         base.Update();
-        print("½ºÄÚ¾î: "+score);
-        if (Time.time>LastActive+scoreTime&&!Player.isDead)
-        {
-            score++;
-            LastActive = Time.time;
-        }
+       
+        
     }
     IEnumerator Platforms()
     {   

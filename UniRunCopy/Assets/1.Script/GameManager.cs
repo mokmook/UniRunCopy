@@ -2,39 +2,99 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+
 
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Image[] heart;
-    [SerializeField] Sprite[] heartDie;
-    int hp;
-    void Start()
+    [SerializeField] GameObject gameoverText;
+    [SerializeField] TextMeshProUGUI scoreText;
+
+    [SerializeField] GameObject gameSettingPanel;
+
+    [SerializeField] Image heratImage;
+    Image[] heratImages;
+    [SerializeField] Image DieheratImage;
+    Image[] DieheratImages;
+
+    float LastActive;
+    [SerializeField] int scoreTime;
+    int score;
+
+    [SerializeField] Player player;
+    private void OnEnable()
     {
-        heart=new Image[heart.Length];
-        heartDie=new Sprite[heart.Length];
-        hp = FindObjectOfType<Player>().cur_hp;
+        LastActive = Time.time;
+        score = 0;
+        scoreTime = 1;
+    }
+    private void Awake()
+    {
+        
+        heratImages = new Image[3];
+        DieheratImages = new Image[3];
+    }
+    private void Start()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            heratImages[i]=Instantiate(heratImage,transform);
+            heratImages[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(i * -70, 0);
+            DieheratImages[i] = Instantiate(DieheratImage, transform);
+            DieheratImages[i].GetComponent<RectTransform>().anchoredPosition += new Vector2(i * -70, 0);
+            DieheratImages[i].gameObject.SetActive(false);
+        }
     }
 
     void Update()
     {
-        switch (hp)
+        if (Time.time > LastActive + scoreTime && !Player.isDead)
         {
-            case 1:
-                heart[1].sprite = heartDie[1];
-                heart[2].sprite = heartDie[2];
-                break;
-            case 2:
-                heart[2].sprite = heartDie[2];
-                break;
+            score++;
+            LastActive = Time.time;
         }
+        scoreText.text = "½ºÄÚ¾î : " + score;
+
+
         if (Player.isDead)
         {
+            gameoverText.gameObject.SetActive(true);
             for (int i = 0; i < 3; i++)
             {
-                heart[i].sprite = heartDie[i];
+                Hit(i);
             }
         }
+        if (gameoverText.activeSelf&&Input.anyKeyDown)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            gameoverText.gameObject.SetActive(false);
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gameSettingPanel.SetActive(!gameSettingPanel.activeSelf);
+        }
 
+
+        switch (player.cur_hp)
+        {
+            case 0:
+                Hit(0); break;
+            case 1:
+                Hit(1); break;
+            case 2:
+                Hit(2); break;
+        }
+        if (score>=20)
+        {
+            SceneManager.LoadScene("Stage2");
+        }
+    }
+    void Hit(int idx)
+    {
+        heratImages[idx].gameObject.SetActive(false);
+        DieheratImages[idx].gameObject.SetActive(true);
     }
 }
