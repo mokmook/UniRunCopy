@@ -36,7 +36,8 @@ public class SettingsUI : MonoBehaviour
                 gameObject.SetActive(false);break;
            case 1:
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);break;
-                
+            case 2:
+                SceneManager.LoadScene(2);break;               
         }
     }
 

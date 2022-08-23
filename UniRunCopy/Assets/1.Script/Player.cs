@@ -39,18 +39,18 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(JumpCounter);
         if (Input.GetKeyDown(KeyCode.Space) && JumpCounter < 2)
         {
+            anim.SetTrigger("Jump");
             rb.velocity = Vector2.up * JumpPower;
             JumpCounter++;
             AudioManager.instance.PlayAudioClip(jumpSound, transform);
-        }   
+        }
         if (isGround)
         {
             anim.SetBool("Run", true);
         }
-        else 
-            anim.SetTrigger("Jump");
 
         if (cur_hp==0)
         {
@@ -80,8 +80,7 @@ public class Player : MonoBehaviour
         {
             cur_hp--;
             AudioManager.instance.PlayAudioClip(getHitSound, transform);
-            StartCoroutine("GetHit");
-            
+            StartCoroutine("GetHit");           
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

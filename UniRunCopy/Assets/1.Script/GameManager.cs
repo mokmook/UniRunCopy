@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     float LastActive;
     [SerializeField] int scoreTime;
-    int score;
+    public int score { get; private set; }
 
     [SerializeField] Player player;
     private void OnEnable()
@@ -96,5 +96,9 @@ public class GameManager : MonoBehaviour
     {
         heratImages[idx].gameObject.SetActive(false);
         DieheratImages[idx].gameObject.SetActive(true);
+    }
+    public void AddScore(int v)
+    {
+        score += v;
     }
 }

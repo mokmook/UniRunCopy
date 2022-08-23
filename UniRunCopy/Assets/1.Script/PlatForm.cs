@@ -39,19 +39,19 @@ public class Platform : PlatformClone
         for (int i = 0; i < 3; i++)
         {
             platforms[i] = Instantiate(platform[i], new Vector2(0, -25), Quaternion.identity);
+            platforms[i].SetActive(false);
         }
         StartCoroutine(Platforms());
     }
     protected override void Update()
     {
-        base.Update();
-       
-        
+        base.Update();             
     }
     IEnumerator Platforms()
     {   
         while (!Player.isDead)
         {
+            platforms[count].SetActive(true);
             platforms[Count].transform.position = new Vector2(xPos, Random.Range(MinYPos, MaxYPos));
             Count += 1;
             yield return new WaitForSeconds(Random.Range(minSpawnTime, MaxSpawnTime));
