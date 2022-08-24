@@ -378,6 +378,7 @@
 "Assets/1.Script/Coin.cs"
 "Assets/1.Script/Enemy.cs"
 "Assets/1.Script/GameManager.cs"
+"Assets/1.Script/MainManager.cs"
 "Assets/1.Script/Platform.cs"
 "Assets/1.Script/PlatformClone.cs"
 "Assets/1.Script/Player.cs"

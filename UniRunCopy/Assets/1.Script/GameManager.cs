@@ -32,8 +32,7 @@ public class GameManager : MonoBehaviour
         scoreTime = 1;
     }
     private void Awake()
-    {
-        
+    {        
         heratImages = new Image[3];
         DieheratImages = new Image[3];
     }

@@ -51,7 +51,8 @@ public class Platform : PlatformClone
     {   
         while (!Player.isDead)
         {
-            platforms[count].SetActive(true);
+            platforms[Count].SetActive(false);
+            platforms[Count].SetActive(true);
             platforms[Count].transform.position = new Vector2(xPos, Random.Range(MinYPos, MaxYPos));
             Count += 1;
             yield return new WaitForSeconds(Random.Range(minSpawnTime, MaxSpawnTime));

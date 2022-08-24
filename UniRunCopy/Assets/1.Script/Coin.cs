@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] GameObject[] coin;
     GameManager gm;
     private void Awake()
     {
@@ -13,7 +12,11 @@ public class Coin : MonoBehaviour
 
     private void OnEnable()
     {
-        gameObject.SetActive(true); 
+        if (Random.Range(0,2)==0)        
+            gameObject.SetActive(true);        
+        else
+            gameObject.SetActive(false);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,5 +26,5 @@ public class Coin : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-
+    
 }
