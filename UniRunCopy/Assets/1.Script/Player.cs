@@ -40,7 +40,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         print(JumpCounter);
-        if (Input.GetKeyDown(KeyCode.Space) && JumpCounter < 2)
+        if (Input.GetKeyDown(KeyCode.Space) && JumpCounter < 3)
         {
             anim.SetTrigger("Jump");
             rb.velocity = Vector2.up * JumpPower;
@@ -70,17 +70,23 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (collision.gameObject.tag == "Ground" && collision.contacts[0].normal.y>.7f)
         {
             isGround = true;
             JumpCounter = 0;
             
         }
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && collision.contacts[0].normal.y <= .7f)
         {
             cur_hp--;
             AudioManager.instance.PlayAudioClip(getHitSound, transform);
             StartCoroutine("GetHit");           
+        }
+        else if(collision.gameObject.tag == "Enemy" && collision.contacts[0].normal.y > .7f)
+        {
+            anim.SetTrigger("Jump");
+            rb.velocity = Vector2.up * 3f;
+            collision.gameObject.SetActive(false);
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

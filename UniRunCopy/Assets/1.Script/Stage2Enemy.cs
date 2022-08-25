@@ -7,8 +7,7 @@ public class Stage2Enemy : Enemy
     Rigidbody2D rb;
     protected override void OnEnable()
     {
-        base.OnEnable();
-        
+        base.OnEnable();       
     }
     private void Start()
     {
@@ -16,8 +15,7 @@ public class Stage2Enemy : Enemy
     }
     void Update()
     {     
-            if (Physics2D.Raycast(transform.position, Vector2.left, 2))
-                rb.velocity = Vector2.left;
-         
+            if (Physics2D.Raycast(transform.position, Vector2.left, 1))
+                rb.velocity = Vector2.left;         
     }
 }

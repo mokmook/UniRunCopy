@@ -599,6 +599,7 @@ GameObject:
   - component: {fileID: 1204484478927964962}
   - component: {fileID: 1204484478927964961}
   - component: {fileID: 1204484478927964963}
+  - component: {fileID: 5883202677834676807}
   m_Layer: 0
   m_Name: Stage2Ground1
   m_TagString: Ground
@@ -676,6 +677,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+--- !u!114 &5883202677834676807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1204484478927964960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f3924032689284ba500a91bdf700fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1204484478613662924}
+  enemyPosition: {x: 5.48, y: 1.96}
 --- !u!1001 &643428702838494640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -733,6 +748,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eebbb2335cb7ec145bdeff201916ea09, type: 3}
+--- !u!1 &1204484478613662924 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1754955520496089468, guid: eebbb2335cb7ec145bdeff201916ea09, type: 3}
+  m_PrefabInstance: {fileID: 643428702838494640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1204484478613662926 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1754955520496089470, guid: eebbb2335cb7ec145bdeff201916ea09, type: 3}

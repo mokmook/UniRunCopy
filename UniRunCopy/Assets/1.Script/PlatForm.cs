@@ -11,9 +11,7 @@ public class Platform : PlatformClone
     [SerializeField] float MaxSpawnTime;
 
     [SerializeField] GameObject[] platform;
-     public GameObject[] platforms { get; private set; }
-
-    
+    public GameObject[] platforms { get; private set; }
 
     [SerializeField] float xPos;
     [SerializeField] float MinYPos;
@@ -31,11 +29,11 @@ public class Platform : PlatformClone
                 count = value;
         }
     }
-    
+
 
     private void Start()
-    {    
-        platforms=new GameObject[3];
+    {
+        platforms = new GameObject[3];
         for (int i = 0; i < 3; i++)
         {
             platforms[i] = Instantiate(platform[i], new Vector2(0, -25), Quaternion.identity);
@@ -45,20 +43,24 @@ public class Platform : PlatformClone
     }
     protected override void Update()
     {
-        base.Update();             
+        base.Update();
     }
     IEnumerator Platforms()
-    {   
+    {
         while (!Player.isDead)
         {
             platforms[Count].SetActive(false);
             platforms[Count].SetActive(true);
+
+            platforms[Count].GetComponent<EnemyController>().enabled = false;
+            platforms[Count].GetComponent<EnemyController>().enabled = true;
+
             platforms[Count].transform.position = new Vector2(xPos, Random.Range(MinYPos, MaxYPos));
             Count += 1;
             yield return new WaitForSeconds(Random.Range(minSpawnTime, MaxSpawnTime));
         }
     }
-    
+
 }
 
 

@@ -88,6 +88,11 @@ public class GameManager : MonoBehaviour
         }
         if (score>=20)
         {
+            if (SceneManager.GetActiveScene().name== "Stage2")
+            {
+                
+            }
+            else
             SceneManager.LoadScene("Stage2");
         }
     }
